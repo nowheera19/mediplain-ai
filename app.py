@@ -80,7 +80,7 @@ def analyze_report(client, report_text: str, language: str):
     {report_text}
     """
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.8-flash",
         contents=prompt,
         config=types.GenerateContentConfig(response_mime_type="application/json"),
     )
@@ -112,7 +112,7 @@ with st.sidebar:
                     client = genai.Client(api_key=api_key)
                     img = Image.open(uploaded)
                     ocr_res = client.models.generate_content(
-                        model="gemini-2.5-flash",
+                        model="gemini-3.8-flash",
                         contents=["Extract all text and lab values verbatim from this medical report.", img],
                     )
                     extracted = ocr_res.text
@@ -208,7 +208,7 @@ with tab2:
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):
                 reply = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.8-flash",
                     contents=user_prompt_parts,
                 ).text
                 st.write(reply)
