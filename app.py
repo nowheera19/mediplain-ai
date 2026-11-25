@@ -611,13 +611,11 @@ ml_result = predict_ml_risk(current_text)
 
 # --- HERO HEADER ---
 st.markdown(
-    f"""
-    <div class="hero-box">
-        <h1>🩺 MediPlain AI — Universal Medical Explainer</h1>
-        <p>Active File: <b>{st.session_state.active_report}</b> &nbsp;|&nbsp; Language: <b>{selected_lang}</b></p>
-        <div class="doc-pill">📄 Detected Type: {detected_type}</div>
-    </div>
-    """,
+    f'<div class="hero-box">'
+    f'<h1>🩺 MediPlain AI — Universal Medical Explainer</h1>'
+    f'<p>Active File: <b>{st.session_state.active_report}</b> &nbsp;|&nbsp; Language: <b>{selected_lang}</b></p>'
+    f'<div class="doc-pill">📄 Detected Type: {detected_type}</div>'
+    f'</div>',
     unsafe_allow_html=True,
 )
 st.caption("⚠️ Educational health-literacy assistant only — not a medical diagnosis. Always consult a qualified doctor.")
@@ -632,31 +630,23 @@ tab1, tab2, tab3 = st.tabs([
 with tab1:
     if ml_result:
         st.markdown(
-            f"""
-            <div class="ml-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                    <span style="font-weight:700; color:#4c1d95; font-size:1rem;">
-                        🤖 Trained ML Biomarker Risk Screening (Random Forest Classifier)
-                    </span>
-                    <span style="background:{ml_result['bg']}; color:{ml_result['fg']}; padding:4px 12px; border-radius:999px; font-weight:700; font-size:0.85rem;">
-                        {ml_result['label']} ({ml_result['confidence']}% confidence)
-                    </span>
-                </div>
-                <p style="margin:6px 0 0 0; font-size:0.88rem; color:#475569;">
-                    Evaluated {ml_result['matched_count']} extracted biomarker(s) locally using <code>clinical_risk_model.pkl</code> (Validation Accuracy: {ml_result['accuracy']}%).
-                </p>
-            </div>
-            """,
+            f'<div class="ml-card">'
+            f'<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">'
+            f'<span style="font-weight:700; color:#4c1d95; font-size:1rem;">🤖 Trained ML Biomarker Risk Screening (Random Forest Classifier)</span>'
+            f'<span style="background:{ml_result["bg"]}; color:{ml_result["fg"]}; padding:4px 12px; border-radius:999px; font-weight:700; font-size:0.85rem;">'
+            f'{ml_result["label"]} ({ml_result["confidence"]}% confidence)</span>'
+            f'</div>'
+            f'<p style="margin:6px 0 0 0; font-size:0.88rem; color:#475569;">'
+            f'Evaluated {ml_result["matched_count"]} extracted biomarker(s) locally using <code>clinical_risk_model.pkl</code> (Validation Accuracy: {ml_result["accuracy"]}%).</p>'
+            f'</div>',
             unsafe_allow_html=True,
         )
 
     st.markdown(
-        f"""
-        <div class="summary-card">
-            <h4 style="margin:0 0 8px 0; color:#0284c7;">📋 Plain-Language Overview ({selected_lang})</h4>
-            <p style="margin:0; font-size:1.02rem; color:#1e293b; line-height:1.6;">{data.get("summary", "")}</p>
-        </div>
-        """,
+        f'<div class="summary-card">'
+        f'<h4 style="margin:0 0 8px 0; color:#0284c7;">📋 Plain-Language Overview ({selected_lang})</h4>'
+        f'<p style="margin:0; font-size:1.02rem; color:#1e293b; line-height:1.6;">{data.get("summary", "")}</p>'
+        f'</div>',
         unsafe_allow_html=True,
     )
 
@@ -681,26 +671,21 @@ with tab1:
             badge_cls = "badge-info"
 
         ref_text = item.get("reference_range", "N/A")
-        ref_html = f'&nbsp;<span style="color:#64748b; font-size:0.85rem;">(Ref: {ref_text})</span>' if ref_text and ref_text != "N/A" else ""
+        ref_html = f' <span style="color:#64748b; font-size:0.85rem;">(Ref: {ref_text})</span>' if ref_text and ref_text != "N/A" else ""
 
-        st.markdown(
-            f"""
-            <div class="bio-card">
-                <div class="bio-header">
-                    <span class="bio-title">{item.get("name", "Finding")}</span>
-                    <div>
-                        <span class="bio-val">{item.get("value", "")}</span>
-                        {ref_html}
-                        &nbsp;<span class="{badge_cls}">{status}</span>
-                    </div>
-                </div>
-                <p style="margin:6px 0;"><b>🔹 What It Is:</b> {item.get("what_it_is", "")}</p>
-                <p style="margin:6px 0;"><b>🔹 Why It Matters:</b> {item.get("why_it_matters", "")}</p>
-                <p style="margin:6px 0;"><b>🔹 What Your Result Means:</b> {item.get("what_result_means", "")}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        card_html = (
+            f'<div class="bio-card">'
+            f'<div class="bio-header">'
+            f'<span class="bio-title">{item.get("name", "Finding")}</span>'
+            f'<div><span class="bio-val">{item.get("value", "")}</span>{ref_html} '
+            f'<span class="{badge_cls}">{status}</span></div>'
+            f'</div>'
+            f'<p style="margin:6px 0;"><b>🔹 What It Is:</b> {item.get("what_it_is", "")}</p>'
+            f'<p style="margin:6px 0;"><b>🔹 Why It Matters:</b> {item.get("why_it_matters", "")}</p>'
+            f'<p style="margin:6px 0;"><b>🔹 What Your Result Means:</b> {item.get("what_result_means", "")}</p>'
+            f'</div>'
         )
+        st.markdown(card_html, unsafe_allow_html=True)
 
         if st.button(f"🔊 Listen to {item.get('name', 'Finding')}", key=f"btn_{cache_key}_{idx}"):
             spoken = f"{item.get('name', '')}. {item.get('what_it_is', '')} {item.get('what_result_means', '')}"
@@ -712,14 +697,12 @@ with tab1:
 
     questions = data.get("doctor_questions", [])
     if questions:
-        q_html = "".join(f"<li style='margin-bottom:6px;'>{q}</li>" for q in questions)
+        q_html = "".join(f'<li style="margin-bottom:6px;">{q}</li>' for q in questions)
         st.markdown(
-            f"""
-            <div class="doctor-box">
-                <h4 style="margin:0 0 10px 0; color:#0f766e;">🩺 Smart Questions to Ask Your Doctor</h4>
-                <ul style="margin:0; padding-left:20px; color:#1e293b;">{q_html}</ul>
-            </div>
-            """,
+            f'<div class="doctor-box">'
+            f'<h4 style="margin:0 0 10px 0; color:#0f766e;">🩺 Smart Questions to Ask Your Doctor</h4>'
+            f'<ul style="margin:0; padding-left:20px; color:#1e293b;">{q_html}</ul>'
+            f'</div>',
             unsafe_allow_html=True,
         )
 
