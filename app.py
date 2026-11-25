@@ -103,6 +103,14 @@ st.markdown(
         border-radius: 14px;
         margin-top: 1rem;
     }
+    .empty-state {
+        background: white;
+        border: 2px dashed #cbd5e1;
+        padding: 2.5rem 2rem;
+        border-radius: 16px;
+        text-align: center;
+        margin-top: 1rem;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -121,167 +129,6 @@ LANGUAGES = {
     "Arabic (العربية)": "ar",
 }
 
-SAMPLE_REPORTS = {
-    "Sample 1: Complete Blood Count (Lab)": (
-        "Hemoglobin: 10.8 g/dL (Ref: 13.0-17.0)\n"
-        "WBC Count: 7,400 /uL (Ref: 4,000-11,000)\n"
-        "Platelets: 245,000 /uL (Ref: 150,000-450,000)\n"
-        "MCV (Mean Corpuscular Volume): 74 fL (Ref: 80-100)"
-    ),
-    "Sample 2: Pregnancy Ultrasound Report": (
-        "OBSTETRIC ULTRASOUND (2nd Trimester)\n"
-        "Gestational Age by LMP: 20 weeks 2 days\n"
-        "Fetal Heart Rate (FHR): 148 bpm (Normal: 110-160 bpm)\n"
-        "Placenta: Posterior, Grade I maturity, away from internal os\n"
-        "Amniotic Fluid Index (AFI): 13.5 cm (Normal: 8-18 cm)\n"
-        "Estimated Fetal Weight (EFW): 340 grams"
-    ),
-    "Sample 3: Chest X-Ray Radiology Report": (
-        "CHEST X-RAY (PA VIEW)\n"
-        "Lungs: Mild hyperinflation with minimal peribronchial thickening in bilateral lower zones. No focal consolidation or pleural effusion.\n"
-        "Heart: Cardiothoracic ratio within normal limits.\n"
-        "Bony Thorax & Diaphragm: Intact, costophrenic angles clear.\n"
-        "Impression: Mild lower airway inflammation / bronchitis; correlate clinically."
-    ),
-}
-
-# Pre-cached English analyses so opening the app & switching samples consumes ZERO API quota
-PRELOADED_SAMPLE_CACHE = {
-    "Sample 1: Complete Blood Count (Lab)__English": {
-        "document_type": "Complete Blood Count (CBC) Lab Report",
-        "summary": "Your white blood cells and platelets are healthy and normal, while your Hemoglobin and MCV (red blood cell size) are slightly below the normal range, which commonly points toward mild iron-deficiency anemia.",
-        "findings": [
-            {
-                "name": "Hemoglobin",
-                "value": "10.8 g/dL",
-                "reference_range": "13.0-17.0",
-                "status": "Low",
-                "what_it_is": "A protein in red blood cells that carries oxygen from your lungs to the rest of your body.",
-                "why_it_matters": "Adequate hemoglobin keeps your energy levels steady and prevents fatigue or shortness of breath.",
-                "what_result_means": "At 10.8 g/dL, your hemoglobin is mildly below the reference range, which can explain tiredness or weakness.",
-            },
-            {
-                "name": "WBC Count",
-                "value": "7,400 /uL",
-                "reference_range": "4,000-11,000",
-                "status": "Normal",
-                "what_it_is": "White blood cells are the immune cells that defend your body against infections.",
-                "why_it_matters": "A balanced WBC count shows your immune system is functioning normally without signs of acute infection.",
-                "what_result_means": "Your count of 7,400 /uL sits comfortably right in the middle of the healthy range.",
-            },
-            {
-                "name": "Platelets",
-                "value": "245,000 /uL",
-                "reference_range": "150,000-450,000",
-                "status": "Normal",
-                "what_it_is": "Tiny blood cell fragments that help your blood clot properly when you get a cut or bruise.",
-                "why_it_matters": "Healthy platelet levels prevent excessive bleeding and support normal wound healing.",
-                "what_result_means": "Your platelet count of 245,000 /uL is completely normal.",
-            },
-            {
-                "name": "MCV (Mean Corpuscular Volume)",
-                "value": "74 fL",
-                "reference_range": "80-100",
-                "status": "Low",
-                "what_it_is": "A measurement of the average size of your red blood cells.",
-                "why_it_matters": "Red blood cell size helps doctors identify the specific cause of low hemoglobin.",
-                "what_result_means": "An MCV of 74 fL means your red blood cells are slightly smaller than average (microcytic), often seen with low iron.",
-            },
-        ],
-        "doctor_questions": [
-            "Could my low Hemoglobin and MCV be caused by iron deficiency, and should I get an iron/ferritin blood test?",
-            "Do you recommend dietary changes or an iron supplement based on these numbers?",
-            "When should I repeat my Complete Blood Count to check if my levels are improving?",
-        ],
-    },
-    "Sample 2: Pregnancy Ultrasound Report__English": {
-        "document_type": "2nd Trimester Pregnancy Ultrasound Report",
-        "summary": "This 20-week pregnancy ultrasound shows healthy fetal development. Your baby's heart rate, amniotic fluid level, placental position, and estimated weight are all within normal, reassuring limits.",
-        "findings": [
-            {
-                "name": "Fetal Heart Rate (FHR)",
-                "value": "148 bpm",
-                "reference_range": "110-160 bpm",
-                "status": "Normal",
-                "what_it_is": "The number of times your baby's heart beats per minute during the scan.",
-                "why_it_matters": "A steady heart rate confirms healthy blood flow and oxygen supply to the baby.",
-                "what_result_means": "148 beats per minute is right in the healthy target range.",
-            },
-            {
-                "name": "Placenta Position",
-                "value": "Posterior, Grade I, away from internal os",
-                "reference_range": "N/A",
-                "status": "Normal",
-                "what_it_is": "The organ that nourishes your baby in the womb, located along the back wall (posterior) and clear of the cervix.",
-                "why_it_matters": "Being away from the internal os means the placenta is not blocking the birth canal.",
-                "what_result_means": "This is a completely normal, safe placental position for 20 weeks.",
-            },
-            {
-                "name": "Amniotic Fluid Index (AFI)",
-                "value": "13.5 cm",
-                "reference_range": "8-18 cm",
-                "status": "Normal",
-                "what_it_is": "A measurement of the protective fluid surrounding your baby inside the amniotic sac.",
-                "why_it_matters": "Proper fluid volume cushions the baby and supports healthy lung and limb movement.",
-                "what_result_means": "13.5 cm indicates a healthy, balanced amount of amniotic fluid.",
-            },
-            {
-                "name": "Estimated Fetal Weight (EFW)",
-                "value": "340 grams",
-                "reference_range": "N/A",
-                "status": "Normal",
-                "what_it_is": "An ultrasound calculation of your baby's current weight based on body measurements.",
-                "why_it_matters": "Tracking weight confirms steady growth matching your gestational age of 20 weeks and 2 days.",
-                "what_result_means": "340 grams is right on track for a healthy 20-week pregnancy.",
-            },
-        ],
-        "doctor_questions": [
-            "Are all anatomical measurements from my 20-week anomaly scan normal?",
-            "When is my next routine ultrasound or glucose screening scheduled?",
-            "Are there any specific prenatal vitamins or nutrition tips I should focus on in the second half of pregnancy?",
-        ],
-    },
-    "Sample 3: Chest X-Ray Radiology Report__English": {
-        "document_type": "Chest X-Ray Radiology Report",
-        "summary": "Your Chest X-Ray shows a normal heart size and clear ribcage, with mild lower airway inflammation (consistent with mild bronchitis). There are no signs of pneumonia or fluid buildup.",
-        "findings": [
-            {
-                "name": "Lungs (Lower Zones)",
-                "value": "Mild hyperinflation & minimal peribronchial thickening",
-                "reference_range": "N/A",
-                "status": "Borderline",
-                "what_it_is": "Mild irritation and slight air trapping in the smaller breathing tubes at the bottom of the lungs.",
-                "why_it_matters": "This typically happens when airways are irritated by a recent cold, cough, allergies, or mild bronchitis.",
-                "what_result_means": "There is no pneumonia (focal consolidation) or fluid around the lungs (pleural effusion), only mild airway irritation.",
-            },
-            {
-                "name": "Heart (Cardiothoracic Ratio)",
-                "value": "Within normal limits",
-                "reference_range": "N/A",
-                "status": "Normal",
-                "what_it_is": "A comparison of the width of your heart to the width of your chest cavity.",
-                "why_it_matters": "A normal ratio indicates your heart is not enlarged.",
-                "what_result_means": "Your heart shadow appears completely normal in size and shape.",
-            },
-            {
-                "name": "Bony Thorax & Diaphragm",
-                "value": "Intact, costophrenic angles clear",
-                "reference_range": "N/A",
-                "status": "Normal",
-                "what_it_is": "The ribs, spine, and breathing muscle below the lungs, along with the lower corners of the lung space.",
-                "why_it_matters": "Clear angles confirm there is no fluid collection or structural injury.",
-                "what_result_means": "Your chest bones and lower lung margins look healthy and normal.",
-            },
-        ],
-        "doctor_questions": [
-            "Do my symptoms match mild bronchitis, and will it clear up with rest or do I need an inhaler or medication?",
-            "How long should I expect a cough or airway irritation to last before feeling back to normal?",
-            "What warning signs (such as fever or shortness of breath) mean I should come back sooner?",
-        ],
-    },
-}
-
-# Expanded pool of Gemini models (each model has its own separate daily Free Tier quota bucket)
 MODEL_CANDIDATES = [
     "gemini-2.5-flash",
     "gemini-2.5-flash-lite",
@@ -413,13 +260,13 @@ def call_gemini_resilient(client, contents, config=None) -> str:
     raise RuntimeError(f"All Gemini free-tier models reached daily quota ({last_err})")
 
 
-# --- SESSION STATE ---
+# --- SESSION STATE (STARTS CLEAN WITH NO SAMPLE REPORTS) ---
 if "vault" not in st.session_state:
-    st.session_state.vault = dict(SAMPLE_REPORTS)
+    st.session_state.vault = {}
 if "active_report" not in st.session_state:
-    st.session_state.active_report = list(SAMPLE_REPORTS.keys())[0]
+    st.session_state.active_report = None
 if "analysis_cache" not in st.session_state:
-    st.session_state.analysis_cache = dict(PRELOADED_SAMPLE_CACHE)
+    st.session_state.analysis_cache = {}
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "last_lang" not in st.session_state:
@@ -504,7 +351,7 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-# --- SIDEBAR (NO API KEY SHOWN TO USERS) ---
+# --- SIDEBAR (CLEAN USER MENU — NO PRELOADED SAMPLES OR API KEY) ---
 with st.sidebar:
     st.markdown("## 🩺 MediPlain AI")
     st.caption("Hybrid ML + Multimodal Medical Explainer")
@@ -519,9 +366,9 @@ with st.sidebar:
     auto_voice = st.toggle("🔊 Auto-Voice Readout", value=True)
 
     st.divider()
-    st.markdown("### 📁 My Medical Vault")
+    st.markdown("### 📁 Upload Medical File")
     uploaded = st.file_uploader(
-        "Upload Lab Report, X-Ray, Pregnancy Scan, or Prescription (PDF, Image, TXT)",
+        "Lab Report, X-Ray, Pregnancy Scan, or Prescription (PDF, Image, TXT)",
         type=["pdf", "png", "jpg", "jpeg", "txt"],
     )
 
@@ -569,29 +416,62 @@ with st.sidebar:
                         ],
                     ).strip()
                 except Exception as e:
-                    st.error(f"Image read error (click Retry or re-upload): {e}")
+                    st.error(f"Image read error (please try again): {e}")
             else:
                 extracted = file_bytes.decode("utf-8", errors="ignore").strip()
 
         if extracted:
             st.session_state.vault[uploaded.name] = extracted
             st.session_state.active_report = uploaded.name
-            st.success(f"Saved '{uploaded.name}' to Vault!")
+            st.success(f"Uploaded '{uploaded.name}'!")
 
-    report_names = list(st.session_state.vault.keys())
-    selected_report = st.radio(
-        "Saved Documents",
-        report_names,
-        index=report_names.index(st.session_state.active_report),
-    )
-    if selected_report != st.session_state.active_report:
-        st.session_state.active_report = selected_report
-        st.session_state.chat_history = []
-        st.rerun()
+    # Show saved files ONLY after the user uploads at least one file
+    if st.session_state.vault:
+        report_names = list(st.session_state.vault.keys())
+        if st.session_state.active_report not in report_names:
+            st.session_state.active_report = report_names[0]
+
+        selected_report = st.radio(
+            "Your Uploaded Files",
+            report_names,
+            index=report_names.index(st.session_state.active_report),
+        )
+        if selected_report != st.session_state.active_report:
+            st.session_state.active_report = selected_report
+            st.session_state.chat_history = []
+            st.rerun()
+
+        if st.button("🗑️ Clear Uploaded Files", use_container_width=True):
+            st.session_state.vault = {}
+            st.session_state.active_report = None
+            st.session_state.analysis_cache = {}
+            st.session_state.chat_history = []
+            st.rerun()
 
     st.divider()
     st.caption(f"🧠 Local ML Model: Random Forest ({ml_artifact['accuracy']}% val. accuracy)")
 
+# --- EMPTY STATE WHEN NO DOCUMENT IS UPLOADED YET ---
+if not st.session_state.vault or not st.session_state.active_report:
+    st.markdown(
+        '<div class="hero-box">'
+        '<h1>🩺 MediPlain AI — Universal Medical Explainer</h1>'
+        f'<p>Language: <b>{selected_lang}</b> &nbsp;|&nbsp; Upload any medical report or scan to begin</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="empty-state">'
+        '<h3 style="color:#0f172a; margin-bottom:8px;">📄 No Medical Document Uploaded Yet</h3>'
+        '<p style="color:#475569; font-size:1rem; max-width:560px; margin:0 auto;">'
+        'Use the <b>Upload Medical File</b> panel in the left sidebar to upload a <b>Blood Lab Report</b>, '
+        '<b>X-Ray / Radiology Scan</b>, <b>Pregnancy Ultrasound</b>, or <b>Prescription</b> (PDF, JPG, PNG, or TXT).</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    st.stop()
+
+# --- ACTIVE DOCUMENT ANALYSIS ---
 current_text = st.session_state.vault[st.session_state.active_report]
 cache_key = f"{st.session_state.active_report}__{selected_lang}"
 
