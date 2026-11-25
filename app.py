@@ -103,16 +103,18 @@ SAMPLE_REPORTS = {
     ),
 }
 
-# Primary + fallback models so temporary 503/500 ServerErrors never crash the demo
+# Primary + fallback models so each model's daily free-tier quota is utilized automatically
 MODEL_CANDIDATES = [
+    "gemini-3.5-flash-lite",
     "gemini-3.8-flash",
     "gemini-3.8-flash-lite",
     "gemini-3.5-flash",
+    "gemini-3.6-flash",
 ]
 
 
 def call_gemini_resilient(client, contents, config=None) -> str:
-    """Tries primary and backup models with short retry on transient ServerError."""
+    """Tries primary and backup models, skipping immediately on 429 quota errors."""
     last_err = None
     for model_name in MODEL_CANDIDATES:
         for attempt in range(2):
@@ -126,6 +128,8 @@ def call_gemini_resilient(client, contents, config=None) -> str:
                     return res.text
             except Exception as e:
                 last_err = e
+                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                    break  # Daily quota full for this model; jump to next model immediately
                 time.sleep(1.2)
     raise RuntimeError(f"All Gemini models temporarily busy. Please try again in a few seconds. ({last_err})")
 
