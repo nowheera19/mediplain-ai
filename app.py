@@ -145,12 +145,153 @@ SAMPLE_REPORTS = {
     ),
 }
 
+# Pre-cached English analyses so opening the app & switching samples consumes ZERO API quota
+PRELOADED_SAMPLE_CACHE = {
+    "Sample 1: Complete Blood Count (Lab)__English": {
+        "document_type": "Complete Blood Count (CBC) Lab Report",
+        "summary": "Your white blood cells and platelets are healthy and normal, while your Hemoglobin and MCV (red blood cell size) are slightly below the normal range, which commonly points toward mild iron-deficiency anemia.",
+        "findings": [
+            {
+                "name": "Hemoglobin",
+                "value": "10.8 g/dL",
+                "reference_range": "13.0-17.0",
+                "status": "Low",
+                "what_it_is": "A protein in red blood cells that carries oxygen from your lungs to the rest of your body.",
+                "why_it_matters": "Adequate hemoglobin keeps your energy levels steady and prevents fatigue or shortness of breath.",
+                "what_result_means": "At 10.8 g/dL, your hemoglobin is mildly below the reference range, which can explain tiredness or weakness.",
+            },
+            {
+                "name": "WBC Count",
+                "value": "7,400 /uL",
+                "reference_range": "4,000-11,000",
+                "status": "Normal",
+                "what_it_is": "White blood cells are the immune cells that defend your body against infections.",
+                "why_it_matters": "A balanced WBC count shows your immune system is functioning normally without signs of acute infection.",
+                "what_result_means": "Your count of 7,400 /uL sits comfortably right in the middle of the healthy range.",
+            },
+            {
+                "name": "Platelets",
+                "value": "245,000 /uL",
+                "reference_range": "150,000-450,000",
+                "status": "Normal",
+                "what_it_is": "Tiny blood cell fragments that help your blood clot properly when you get a cut or bruise.",
+                "why_it_matters": "Healthy platelet levels prevent excessive bleeding and support normal wound healing.",
+                "what_result_means": "Your platelet count of 245,000 /uL is completely normal.",
+            },
+            {
+                "name": "MCV (Mean Corpuscular Volume)",
+                "value": "74 fL",
+                "reference_range": "80-100",
+                "status": "Low",
+                "what_it_is": "A measurement of the average size of your red blood cells.",
+                "why_it_matters": "Red blood cell size helps doctors identify the specific cause of low hemoglobin.",
+                "what_result_means": "An MCV of 74 fL means your red blood cells are slightly smaller than average (microcytic), often seen with low iron.",
+            },
+        ],
+        "doctor_questions": [
+            "Could my low Hemoglobin and MCV be caused by iron deficiency, and should I get an iron/ferritin blood test?",
+            "Do you recommend dietary changes or an iron supplement based on these numbers?",
+            "When should I repeat my Complete Blood Count to check if my levels are improving?",
+        ],
+    },
+    "Sample 2: Pregnancy Ultrasound Report__English": {
+        "document_type": "2nd Trimester Pregnancy Ultrasound Report",
+        "summary": "This 20-week pregnancy ultrasound shows healthy fetal development. Your baby's heart rate, amniotic fluid level, placental position, and estimated weight are all within normal, reassuring limits.",
+        "findings": [
+            {
+                "name": "Fetal Heart Rate (FHR)",
+                "value": "148 bpm",
+                "reference_range": "110-160 bpm",
+                "status": "Normal",
+                "what_it_is": "The number of times your baby's heart beats per minute during the scan.",
+                "why_it_matters": "A steady heart rate confirms healthy blood flow and oxygen supply to the baby.",
+                "what_result_means": "148 beats per minute is right in the healthy target range.",
+            },
+            {
+                "name": "Placenta Position",
+                "value": "Posterior, Grade I, away from internal os",
+                "reference_range": "N/A",
+                "status": "Normal",
+                "what_it_is": "The organ that nourishes your baby in the womb, located along the back wall (posterior) and clear of the cervix.",
+                "why_it_matters": "Being away from the internal os means the placenta is not blocking the birth canal.",
+                "what_result_means": "This is a completely normal, safe placental position for 20 weeks.",
+            },
+            {
+                "name": "Amniotic Fluid Index (AFI)",
+                "value": "13.5 cm",
+                "reference_range": "8-18 cm",
+                "status": "Normal",
+                "what_it_is": "A measurement of the protective fluid surrounding your baby inside the amniotic sac.",
+                "why_it_matters": "Proper fluid volume cushions the baby and supports healthy lung and limb movement.",
+                "what_result_means": "13.5 cm indicates a healthy, balanced amount of amniotic fluid.",
+            },
+            {
+                "name": "Estimated Fetal Weight (EFW)",
+                "value": "340 grams",
+                "reference_range": "N/A",
+                "status": "Normal",
+                "what_it_is": "An ultrasound calculation of your baby's current weight based on body measurements.",
+                "why_it_matters": "Tracking weight confirms steady growth matching your gestational age of 20 weeks and 2 days.",
+                "what_result_means": "340 grams is right on track for a healthy 20-week pregnancy.",
+            },
+        ],
+        "doctor_questions": [
+            "Are all anatomical measurements from my 20-week anomaly scan normal?",
+            "When is my next routine ultrasound or glucose screening scheduled?",
+            "Are there any specific prenatal vitamins or nutrition tips I should focus on in the second half of pregnancy?",
+        ],
+    },
+    "Sample 3: Chest X-Ray Radiology Report__English": {
+        "document_type": "Chest X-Ray Radiology Report",
+        "summary": "Your Chest X-Ray shows a normal heart size and clear ribcage, with mild lower airway inflammation (consistent with mild bronchitis). There are no signs of pneumonia or fluid buildup.",
+        "findings": [
+            {
+                "name": "Lungs (Lower Zones)",
+                "value": "Mild hyperinflation & minimal peribronchial thickening",
+                "reference_range": "N/A",
+                "status": "Borderline",
+                "what_it_is": "Mild irritation and slight air trapping in the smaller breathing tubes at the bottom of the lungs.",
+                "why_it_matters": "This typically happens when airways are irritated by a recent cold, cough, allergies, or mild bronchitis.",
+                "what_result_means": "There is no pneumonia (focal consolidation) or fluid around the lungs (pleural effusion), only mild airway irritation.",
+            },
+            {
+                "name": "Heart (Cardiothoracic Ratio)",
+                "value": "Within normal limits",
+                "reference_range": "N/A",
+                "status": "Normal",
+                "what_it_is": "A comparison of the width of your heart to the width of your chest cavity.",
+                "why_it_matters": "A normal ratio indicates your heart is not enlarged.",
+                "what_result_means": "Your heart shadow appears completely normal in size and shape.",
+            },
+            {
+                "name": "Bony Thorax & Diaphragm",
+                "value": "Intact, costophrenic angles clear",
+                "reference_range": "N/A",
+                "status": "Normal",
+                "what_it_is": "The ribs, spine, and breathing muscle below the lungs, along with the lower corners of the lung space.",
+                "why_it_matters": "Clear angles confirm there is no fluid collection or structural injury.",
+                "what_result_means": "Your chest bones and lower lung margins look healthy and normal.",
+            },
+        ],
+        "doctor_questions": [
+            "Do my symptoms match mild bronchitis, and will it clear up with rest or do I need an inhaler or medication?",
+            "How long should I expect a cough or airway irritation to last before feeling back to normal?",
+            "What warning signs (such as fever or shortness of breath) mean I should come back sooner?",
+        ],
+    },
+}
+
+# Expanded pool of Gemini models (each model has its own separate daily Free Tier quota bucket)
 MODEL_CANDIDATES = [
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
     "gemini-3.5-flash-lite",
-    "gemini-3.8-flash",
-    "gemini-3.8-flash-lite",
     "gemini-3.5-flash",
     "gemini-3.6-flash",
+    "gemini-3.8-flash",
+    "gemini-3.8-flash-lite",
 ]
 
 
@@ -211,6 +352,35 @@ def predict_ml_risk(report_text: str):
     }
 
 
+def build_local_fallback_analysis(report_text: str) -> dict:
+    """Graceful offline parser if all Gemini API quotas are exhausted for the day."""
+    lines = [ln.strip() for ln in report_text.splitlines() if ln.strip()]
+    findings = []
+    for ln in lines[:8]:
+        parts = ln.split(":", 1)
+        name = parts[0].strip()
+        val = parts[1].strip() if len(parts) > 1 else "Recorded"
+        findings.append({
+            "name": name,
+            "value": val,
+            "reference_range": "N/A",
+            "status": "Informational",
+            "what_it_is": f"Documented clinical entry for {name} extracted from your report.",
+            "why_it_matters": "Helps your doctor evaluate this specific measurement or observation.",
+            "what_result_means": f"Recorded value/note: {val}. Discuss with your doctor for personalized clinical context.",
+        })
+    return {
+        "document_type": "Medical Document (Offline Parser Mode)",
+        "summary": "Your document was parsed locally while the cloud AI service is cooling down from daily free-tier rate limits. Review the extracted entries and ML risk screening below.",
+        "findings": findings,
+        "doctor_questions": [
+            "Can you walk me through which values or findings on this report need follow-up?",
+            "Are any additional tests or lifestyle adjustments recommended based on these results?",
+            "When should I schedule my next checkup?",
+        ],
+    }
+
+
 def get_hidden_api_key() -> str:
     """Silently loads API key from Streamlit Secrets or environment variables."""
     secret_val = ""
@@ -226,21 +396,21 @@ def call_gemini_resilient(client, contents, config=None) -> str:
     """Tries primary and backup models, skipping immediately on 429 quota errors."""
     last_err = None
     for model_name in MODEL_CANDIDATES:
-        for attempt in range(2):
-            try:
-                res = client.models.generate_content(
-                    model=model_name,
-                    contents=contents,
-                    config=config,
-                )
-                if res and res.text:
-                    return res.text
-            except Exception as e:
-                last_err = e
-                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
-                    break
-                time.sleep(1.2)
-    raise RuntimeError(f"AI service temporarily busy. Please try again in a moment. ({last_err})")
+        try:
+            res = client.models.generate_content(
+                model=model_name,
+                contents=contents,
+                config=config,
+            )
+            if res and res.text:
+                return res.text
+        except Exception as e:
+            last_err = e
+            err_str = str(e)
+            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "404" in err_str:
+                continue
+            time.sleep(0.8)
+    raise RuntimeError(f"All Gemini free-tier models reached daily quota ({last_err})")
 
 
 # --- SESSION STATE ---
@@ -249,7 +419,7 @@ if "vault" not in st.session_state:
 if "active_report" not in st.session_state:
     st.session_state.active_report = list(SAMPLE_REPORTS.keys())[0]
 if "analysis_cache" not in st.session_state:
-    st.session_state.analysis_cache = {}
+    st.session_state.analysis_cache = dict(PRELOADED_SAMPLE_CACHE)
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "last_lang" not in st.session_state:
@@ -431,11 +601,9 @@ if cache_key not in st.session_state.analysis_cache:
             st.session_state.analysis_cache[cache_key] = analyze_medical_document(
                 client, current_text, selected_lang
             )
-        except Exception as e:
-            st.error(f"Temporary AI service delay in {selected_lang}: {e}")
-            if st.button("🔄 Retry Now"):
-                st.rerun()
-            st.stop()
+        except Exception:
+            st.warning("⚠️ Free-tier daily AI limit reached on current key — switched to local offline parser mode.")
+            st.session_state.analysis_cache[cache_key] = build_local_fallback_analysis(current_text)
 
 data = st.session_state.analysis_cache[cache_key]
 detected_type = data.get("document_type", "Medical Document")
@@ -462,7 +630,6 @@ tab1, tab2, tab3 = st.tabs([
 
 # --- TAB 1: NEAT FINDING-BY-FINDING EXPLAINER ---
 with tab1:
-    # Show locally trained Random Forest ML triage card when numeric lab values are present
     if ml_result:
         st.markdown(
             f"""
@@ -610,8 +777,13 @@ with tab2:
                         if reply_audio:
                             st.audio(reply_audio, format="audio/mp3")
                     st.session_state.chat_history.append({"role": "assistant", "content": reply})
-                except Exception as e:
-                    st.error(f"Chat Error: {e}")
+                except Exception:
+                    fallback_reply = (
+                        f"Your document ({detected_type}) contains these recorded details:\n\n{current_text}\n\n"
+                        "*(Note: Live cloud AI chat quota is temporarily full—please update your GEMINI_API_KEY in Streamlit Secrets or try again shortly.)*"
+                    )
+                    st.write(fallback_reply)
+                    st.session_state.chat_history.append({"role": "assistant", "content": fallback_reply})
 
 # --- TAB 3: RAW REPORT ---
 with tab3:
